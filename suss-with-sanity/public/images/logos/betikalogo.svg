@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0_360_1314)">
+<rect width="32" height="32" fill="url(#pattern0)"/>
+</g>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_360_1314" transform="scale(0.03125)"/>
+</pattern>
+<clipPath id="clip0_360_1314">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+<image id="image0_360_1314" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAM1BMVEV+0yB90iJstD0EIYMYKIFenU2B2RkkN31OgF8+XG56c2PvzhTewCn/4QCvm0rErDuVh1Y5SgkyAAAAAnRSTlP//r+y71EAAAEISURBVHgBYiAAGAepAkDt9JHAQAhCATT4Uex6/9MGTBtTV2H6+OxK5Jwj+lKCA1v4cADhEQqYAWF/KIG8jzGlJJL8KTjkUsHuAWgVKgxAH05BaxvQQiVn5D5GhojHbGUDQUFrpVlUFegG6NgGRlPRZ29tsoH6BnSANWngAmQbB0FpGQwpq4RhLBxAMDBTHqsN70Ftl0gGautIG0jQzKUUFR1aQpn8CjoAnq1lFoBlB/HSfJH15FqE4wuoYOYFkhbzArTsOnMeNlKc9XKnI/AG2mOswSlsA+WRtdhR68jgRDHqatkBi4BhYZXbutlAWAtCUYqewrtFe12n15yvgGjd/rlx6AugH3EGfasMxuwbzXcAAAAASUVORK5CYII="/>
+</defs>
+</svg>
