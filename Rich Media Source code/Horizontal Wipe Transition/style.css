@@ -1,0 +1,75 @@
+/* scenes (the good stuff) */
+.scenes {
+    position: relative;
+    width: 970px;      /* Set the width */
+    height: 250px;     /* Set the height */
+    /* outline: 2px solid #ccc; */
+}
+
+.scene-1, .scene-2 {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+}
+
+.scene-1 {
+  background-image: url(./Frame_1.png);
+}
+
+.scene-2 {
+  background-image: url(./Frame_2.png);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 47.5%,
+    #fff 52.5%
+  );
+  -webkit-mask-size: 210%;
+  -webkit-mask-position: left;
+  transition: -webkit-mask-position 2s linear;
+}
+
+.scenes.active .scene-2 {
+  -webkit-mask-position: right;
+}
+
+.scenes.reverse .scene-2 {
+  -webkit-mask-position: left;
+}
+
+/* everything else */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+  /* background-color: #111; */
+  font: clamp(0.75rem, 0.3rem + 1.9vw, 1.5rem)/1.1 'Koulen', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.wrapper {
+  display: grid;
+  gap: 30px;
+  width: min(1000px, 100%);
+}
+
+/* Trembling effect */
+@keyframes tremble {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+  
+/* Trembling during transition only */
+.scenes.trembling {
+  animation: tremble 0.1s infinite;
+}

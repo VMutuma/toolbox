@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Frame With Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .ad-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .frame-1 {
+            background-image: url('frame1.png');
+            z-index: 2;
+        }
+
+        .frame-2 {
+            background-image: url('frame2.png');
+            opacity: 0;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            color: #84a366;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px #5fbf00, 0 0 15px #5fbf00;
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px #5fbf00, 0 0 30px #5fbf00;
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px #5fbf00, 0 0 15px #5fbf00;
+            }
+        }
+
+        /* Apply animations */
+        .countdown {
+            animation: glow 2s infinite alternate;
+        }
+
+        .countdown.update {
+            animation: scaleUp 0.5s ease-in-out, glow 1.5s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <!-- First Frame -->
+        <div class="frame frame-1"></div>
+        <!-- Second Frame -->
+        <div class="frame frame-2">
+            <div class="countdown" id="countdown">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        const frame1 = document.querySelector('.frame-1');
+        const frame2 = document.querySelector('.frame-2');
+        const countdownElement = document.getElementById('countdown');
+
+        setTimeout(() => {
+            frame1.style.opacity = '0';
+            frame2.style.opacity = '1';
+            countdownElement.style.opacity = '1';
+        }, 5000);
+
+        // Countdown timer logic
+        const endDate = new Date('2024-12-31T23:59:59').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = endDate - now;
+
+            if (timeLeft <= 0) {
+                countdownElement.textContent = 'Offer Expired';
+                countdownElement.classList.remove('update');
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            countdownElement.classList.add('update');
+
+            setTimeout(() => countdownElement.classList.remove('update'), 500);
+        }
+
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

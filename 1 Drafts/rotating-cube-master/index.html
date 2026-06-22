@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otáčející se kostka</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center">Demo - otáčející se kostka</h1>
+        <div class="row">
+            <div class="col-12 col-md-4 col-xl-3 pt-4 pl-3">
+                <button class="btn btn-primary m-2" id="right">Rotovat doprava</button>
+                <button class="btn btn-primary m-2" id="left">Rotovat doleva</button>
+                <button class="btn btn-primary m-2" id="up">Rotovat nahoru</button>
+                <button class="btn btn-primary m-2" id="down">Rotovat dolů</button>
+                <button class="btn btn-primary m-2" id="z-axis-right">Rotovat kolem osy Z doprava</button>
+                <button class="btn btn-primary m-2" id="z-axis-left">Rotovat kolem osy Z doleva</button>
+                <button class="btn btn-warning m-2" id="stop">Zastavit rotaci</button>
+            </div>
+            <div class="col-12 col-md-8 col-xl-9 main-content">
+                <div class="wrapper">
+                    <div class="cube" id="cube">
+                        <div class="face face-front">předek</div>
+                        <div class="face face-back">zadek</div>
+                        <div class="face face-top">nahoře</div>
+                        <div class="face face-bottom">dole</div>
+                        <div class="face face-right">vpravo</div>
+                        <div class="face face-left">vlevo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="rotations.js"></script>
+</body>
+
+</html>

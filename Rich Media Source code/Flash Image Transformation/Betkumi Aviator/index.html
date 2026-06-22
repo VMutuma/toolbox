@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Icons</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    .glassIco {
+      --width: 300px;
+      box-sizing: border-box;
+      transition: transform 350ms ease-in-out, background-image 350ms ease-in-out;
+      width: var(--width);
+      height: var(--width);
+      background: rgba(255, 255, 255, 0.05);
+      background-image: url('./Betkumi 1.png');
+      background-size: cover;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-right-color: rgba(255, 255, 255, 0.1);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      margin: 20px;
+      overflow: hidden;
+      position: relative;
+      animation: bounceEffect 3.3s infinite;
+    }
+    .glassIco:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.5);
+      filter: blur(0px);
+      transition: transform 300ms ease-in-out;
+      transform: skewX(45deg) translateX(calc(var(--width) + 50%));
+    }
+    .glassIco.hovered:before {
+      transform: skewX(45deg) translateX(calc(var(--width) * -1 - 50%));
+    }
+    .glassIco > * {
+      opacity: 0.8;
+    }
+    .glassIco.hovered {
+      transform: translateY(-20px);
+      background-image: url('./Betkumi 6.png');
+    }
+
+    @keyframes bounceEffect {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glassIco" id="glassIco"></div>
+
+  <script>
+    const glassIco = document.getElementById('glassIco');
+    let hovered = false;
+
+    setInterval(() => {
+      if (hovered) {
+        glassIco.classList.remove('hovered');
+      } else {
+        glassIco.classList.add('hovered');
+      }
+      hovered = !hovered;
+    }, 3300); // 350ms transition + 2950ms delay
+  </script>
+</body>
+</html>

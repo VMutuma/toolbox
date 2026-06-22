@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbly Liquid Effect Slideshow with Interactive Features</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            background: linear-gradient(135deg, #5c4a8c, #3e2a5f);
+            animation: float 5s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .slideshow-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50px;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        @keyframes wave {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes liquidTransition {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.85) skewY(-10deg); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container" id="slideshowContainer">
+        <img src="1.png" alt="Image 1" class="slide" id="slide1">
+        <img src="2.png" alt="Image 2" class="slide hidden" id="slide2">
+        <img src="3.png" alt="Image 3" class="slide hidden" id="slide3">
+        <img src="4.png" alt="Image 4" class="slide hidden" id="slide4">
+        <img src="5.png" alt="Image 5" class="slide hidden" id="slide5">
+    </div>
+
+    <canvas id="particlesCanvas"></canvas>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        const canvas = document.getElementById('particlesCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+
+        function createParticles(x, y) {
+            const count = 40;
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    size: Math.random() * 10 + 5,
+                    speedX: (Math.random() - 0.5) * 4,
+                    speedY: (Math.random() - 0.5) * 4,
+                });
+            }
+        }
+
+        function updateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                const particle = particles[i];
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+                particle.size *= 0.95;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (particle.size < 0.1) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(updateParticles);
+        }
+
+        function nextSlide() {
+            createParticles(window.innerWidth / 2, window.innerHeight / 2);
+            slides[currentSlide].style.animation = 'liquidTransition 0.5s forwards';
+            slides[currentSlide].classList.add('hidden');
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slides[currentSlide].classList.remove('hidden');
+            slides[currentSlide].style.animation = 'liquidTransition 0.5s forwards';
+        }
+
+        updateParticles();
+        setInterval(nextSlide, 3000);
+    </script>
+</body>
+</html>

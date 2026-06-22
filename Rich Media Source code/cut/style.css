@@ -1,0 +1,71 @@
+.wrapper {
+  position: relative;
+  perspective: 40em;
+  display: grid;
+  transform-style: preserve-3d;
+}
+
+.card {
+  grid-area: 1 / 1;
+  height: 190px;
+  width: 900px;
+  transform: translateX(10px) rotateY(25deg) rotateX(10deg);
+  background: url(Frame.png);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px;
+  color: #fa0f0f;
+  text-transform: uppercase;
+  font-size: 60px;
+  font-weight: 900;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 30px -3px rgba(0, 0, 0, .1);
+  animation: animateCard 3s ease-in-out infinite alternate; /* Apply animation */
+}
+
+.wrapper:before {
+  --bw: 3px;
+  grid-area: 1 / 1;
+  content: '';
+  backface-visibility: hidden;
+  height: 100%;
+  width: 100%;
+  margin-top: calc(-1 * var(--bw));
+  margin-left: calc(-1 * var(--bw));
+  background: transparent;
+  transform: translateX(-60px) rotateY(-30deg) rotateX(15deg) scale(1.03);
+  pointer-events: none;
+  border: var(--bw) solid #f21010;
+  box-sizing: content-box;
+  animation: animateWrapper 3s ease-in-out infinite alternate; /* Apply animation */
+}
+
+@keyframes animateCard {
+  0% {
+    transform: translateX(10px) rotateY(25deg) rotateX(10deg);
+  }
+  100% {
+    transform: none; /* Mimic the hover effect */
+  }
+}
+
+@keyframes animateWrapper {
+  0% {
+    transform: translateX(-60px) rotateY(-30deg) rotateX(15deg) scale(1.03);
+  }
+  100% {
+    transform: none; /* Mimic the hover effect */
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+

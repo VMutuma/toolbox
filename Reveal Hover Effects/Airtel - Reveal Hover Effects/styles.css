@@ -1,0 +1,110 @@
+/* scenes (the good stuff) */
+
+@property --radius {
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: -5%;
+  }
+
+@property --radius {
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: -5%;
+  }
+  
+  @keyframes scene-transition {
+    to { --radius: 105%; }
+  }
+  
+  
+  .scene-1, .scene-2 {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+  }
+  
+  .scene-1 {
+    background-image: url(https://assets.codepen.io/77020/sw-iris-wipe-scene-1.jpg);
+  }
+  
+  .scene-2 {
+    background-image: url(https://assets.codepen.io/77020/sw-iris-wipe-scene-2.jpg);
+    z-index: -1;
+    -webkit-mask-image: radial-gradient(
+      circle,
+      #fff calc(var(--radius) - 5%),
+      transparent calc(var(--radius) + 5%)
+    );
+  }
+  
+  .scenes:is(:hover, :focus) .scene-2 {
+    z-index: 1;
+    animation: scene-transition 2s linear forwards;
+  }
+    
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    min-height: 100vh;
+    margin: 10px;
+  }
+  
+  @keyframes scene-transition {
+    to { --radius: 105%; }
+  }
+  
+  .scenes {
+    position: absolute;
+  }
+  
+  .scene-1, .scene-2 {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    height: 300px;
+    width: 300px;
+  }
+  
+  .scene-1 {
+    background-image: url(2.png);
+
+  }
+  
+  .scene-2 {
+    background-image: url(1.png);
+    z-index: -1;
+    -webkit-mask-image: radial-gradient(
+      circle,
+      #fff calc(var(--radius) - 5%),
+      transparent calc(var(--radius) + 5%)
+    );
+  }
+  
+  .scenes:is(:hover, :focus) .scene-2 {
+    z-index: 1;
+    animation: scene-transition 2s linear forwards;
+  }
+  
+  .scene-title {
+    position: absolute;
+    max-width: 45%;
+    margin: min(40px, 4vw);
+    font-size: 1.25em;
+  }
+  
+  .scene-1 .scene-title {
+    top: 0;
+    right: 0;
+    color: #fff;
+    text-align: right;
+  }
+  
+  .scene-2 .scene-title {
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    text-align: left;
+  }
+  

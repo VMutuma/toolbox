@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Transition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .frame {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        figure {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .image-1 {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-image: url('./Frame_1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            top: 0;
+            left: 0;
+            transition: all 2s ease-in-out;
+        }
+
+        .image-2 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            opacity: 0;
+            background-image: url('./Frame_2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: all 2s ease-in-out;
+        }
+
+        figure:hover .image-2 {
+            opacity: 1;
+            transform: translate(0) !important;
+        }
+
+        .image-2:nth-child(2) {
+            background-position: 0px 0px;
+            left: 0px;
+            transform: translateY(60px);
+        }
+
+        .image-2:nth-child(3) {
+            background-position: -50px 0;
+            left: 50px;
+            transform: translateY(-60px);
+        }
+
+        .image-2:nth-child(4) {
+            background-position: -100px 0;
+            left: 100px;
+            transform: translateY(60px);
+        }
+
+        .image-2:nth-child(5) {
+            left: 150px;
+            background-position: -150px 0;
+            transform: translateY(-60px);
+        }
+
+        .image-2:nth-child(6) {
+            left: 200px;
+            background-position: -200px 0;
+            transform: translateY(60px);
+        }
+
+        .image-2:nth-child(7) {
+            left: 250px;
+            background-position: -250px 0;
+            transform: translateY(-60px);
+        }
+
+        .image-2:nth-child(8) {
+            left: 300px;
+            background-position: -300px 0;
+            transform: translateY(60px);
+        }
+
+        .image-2:nth-child(9) {
+            left: 350px;
+            background-position: -350px 0;
+            transform: translateY(-60px);
+        }
+
+        .hand {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('./hand-icon.png') no-repeat center center;
+            background-size: contain;
+            animation: sway 5s infinite alternate;
+        }
+
+        .frame:hover .hand {
+            animation: none;
+        }
+
+        @keyframes sway {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(300px, -300px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <figure>
+            <div class="image-1"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+            <div class="image-2"></div>
+        </figure>
+        <div class="hand"></div>
+    </div>
+</body>
+</html>
