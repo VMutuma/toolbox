@@ -1,0 +1,8 @@
+2025-02-05 12:34:05,350 - Glossary saved to Word document: Infobip_Glossary.docx
+2025-02-05 12:34:05,350 - Successfully converted updated_infobip_glossary.json to Infobip_Glossary.docx
+2025-02-05 12:35:40,071 - Error while writing Word document: [Errno 13] Permission denied: 'Infobip_Glossary.docx'
+2025-02-05 12:35:40,071 - Error while converting JSON to Word: [Errno 13] Permission denied: 'Infobip_Glossary.docx'
+2025-02-05 12:35:50,807 - Glossary saved to Word document: Infobip_Glossary.docx
+2025-02-05 12:35:50,807 - Successfully converted updated_infobip_glossary.json to Infobip_Glossary.docx
+2025-02-05 12:39:40,706 - INFO - Glossary saved to Word document: Infobip_Glossary.docx
+2025-02-05 12:39:40,706 - INFO - Successfully converted updated_infobip_glossary.json to Infobip_Glossary.docx
