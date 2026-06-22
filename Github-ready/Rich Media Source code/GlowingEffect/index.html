@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Effect with Color Shift, Tilt, and Burst</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+            perspective: 1000px; /* Adds depth to the container */
+            background-color: #f0f0f0;
+        }
+
+        .floating-container {
+            position: relative;
+            width: 320px; /* Image width */
+            height: 480px; /* Image height */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            overflow: hidden; /* Prevent overflow from the spotlight */
+            animation: colorShift 6s infinite alternate; /* Color shift animation */
+            transition: transform 0.3s ease; /* Smooth scaling and tilting effect */
+        }
+
+        .floating-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px; /* Optional: rounded corners */
+            transition: transform 0.3s ease; /* Smooth scaling effect */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Initial glow */
+        }
+
+        @keyframes colorShift {
+            0% {
+                filter: hue-rotate(0deg); /* No color shift */
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Red glow */
+            }
+            25% {
+                filter: hue-rotate(90deg); /* Shift to yellow */
+                box-shadow: 0 0 15px rgba(255, 255, 0, 0.8); /* Yellow glow */
+            }
+            50% {
+                filter: hue-rotate(180deg); /* Shift to green */
+                box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); /* Green glow */
+            }
+            75% {
+                filter: hue-rotate(270deg); /* Shift to cyan */
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.8); /* Cyan glow */
+            }
+            100% {
+                filter: hue-rotate(360deg); /* Shift back to original */
+                box-shadow: 0 0 15px rgba(255, 0, 255, 0.8); /* Magenta glow */
+            }
+        }
+
+        /* Click-to-Burst Animation */
+        @keyframes burst {
+            0% {
+                transform: scale(1); /* Initial size */
+            }
+            50% {
+                transform: scale(1.2); /* Burst effect on click */
+            }
+            100% {
+                transform: scale(1); /* Back to original size */
+            }
+        }
+
+        /* Hover effect with tilt */
+        .floating-container:hover {
+            transform: scale(1.05) rotateY(5deg); /* Slightly increase size and tilt on hover */
+        }
+
+        .floating-image:hover {
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+
+        /* Adding a class for burst effect */
+        .bursting {
+            animation: burst 0.5s forwards; /* Burst animation when clicked */
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-container" id="floatingContainer">
+        <img src="1.jpg" alt="Image" class="floating-image" id="floatingImage">
+    </div>
+
+    <script>
+        const floatingImage = document.getElementById('floatingImage');
+        const floatingContainer = document.getElementById('floatingContainer');
+
+        // Click-to-Burst Effect with Reset
+        floatingImage.addEventListener('click', () => {
+            floatingContainer.classList.add('bursting');
+            setTimeout(() => {
+                floatingContainer.classList.remove('bursting');
+            }, 500); // Duration of the burst effect (500ms)
+        });
+    </script>
+</body>
+</html>

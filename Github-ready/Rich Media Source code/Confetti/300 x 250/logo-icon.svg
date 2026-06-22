@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+  <!-- Generator: Adobe Illustrator 29.2.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 10)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        clip-path: url(#clippath-1);
+      }
+
+      .st2 {
+        clip-path: url(#clippath-2);
+      }
+
+      .st3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <path class="st0" d="M532.7,332.5c0,56.5,66.7,72.2,144.4,81.5,71.1,8.8,139.5,22.9,188.6,56.6-4.6-59.6-23.5-115.2-53.2-163.4-26.9-32.6-82.4-60.8-145.5-60.8-90.7,0-134.3,37.9-134.3,86.1M469.7,134.3c-195.1,16.3-346.8,185.5-334.8,387.5,10.9,183.1,159.9,332.2,343,343.3,67.4,4.1,131.1-10.2,186.7-38.1-119.8-.3-214.5-34.1-266.7-129-8.8-15.9-3.1-36,13-44.3l46.4-24c14.4-7.5,32.3-3,41.1,10.6,34.7,53.6,100.7,77.6,169.4,77.6s149.1-26.8,149.1-97.3-63.9-86.1-150-95.4c-132.4-15.7-254.6-50.9-254.6-196.3s87.6-165.2,184.8-182.8c-21.3-5.8-43.3-9.8-65.9-11.7h-61.6Z"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="st0" x="-28.1" y="-20.7" width="1044.9" height="1044.9" transform="translate(-210 496.5) rotate(-45)"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="st0" x="-550.5" y="-543.2" width="2089.7" height="2089.7" transform="translate(-210 496.5) rotate(-45)"/>
+    </clipPath>
+  </defs>
+  <g class="st3">
+    <g class="st1">
+      <g class="st2">
+        <image width="12315" height="12315" transform="translate(-983.5 -976.1) scale(.2)" xlink:href="SUSS_ICON-1.png"/>
+      </g>
+    </g>
+  </g>
+</svg>

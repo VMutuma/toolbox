@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash out</title>
+</head>
+<body>
+   <div class="box"></div> 
+
+   <style>
+    .box{
+      position: absolute;
+      width:300px;
+      height: 250px;
+      background: url(Cash-out.png);
+      background-size: cover;  
+    }
+    .box:before,
+    .box:after{
+        content: '';
+        position: absolute;
+        left:0;
+        width: 100%;
+        height:50%;
+        background: url(Cash-out.png);
+        background-size: 100%;
+        filter: grayscale(100%);
+        transition: 1s;
+    }
+    .box:before{
+        top:0;
+        transform-origin: top;
+        transform: perspective(500px) rotate(0deg);
+        background-position: 0 0;
+    }
+    .box:after{
+        bottom: 0;
+        transform-origin: bottom;
+        transform: perspective(500px) rotate(0deg);
+        background-position: 0 105%;
+    }
+    .box:hover:before{
+        transform: perspective(500px) rotateX(270deg);
+    }
+    .box:hover:after{
+        transform: perspective(500px) rotateX(-270deg);
+    }
+   </style>
+</body>
+</html>

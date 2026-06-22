@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Animation</title>
+    <style>
+        :root {
+            --b: #32cbfb;
+            --w: #fff;
+            --g: #e4e2e5;
+            --r: #fc3359;
+            --y: #fefb3a;
+            --bl: #222;
+            --t: rgba(255, 255, 255, 0.00001);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--g);
+        }
+
+        #wrap {
+            width: 800px;
+            height: 500px;
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            background: linear-gradient(to bottom, var(--w) 50%, var(--g) 50%);
+        }
+
+        .trigger {
+            position: absolute;
+            width: 5%;
+            height: 100%;
+            bottom: 0;
+            right: 0;
+            z-index: 99;
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .trigger:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: var(--w);
+            box-shadow: -1px 0 0 0 rgba(0, 0, 0, 0.015);
+            transition: 0.2s ease-in-out;
+        }
+
+        .trigger:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 0 20px 20px;
+            border-color: transparent transparent transparent var(--bl);
+            top: calc(50% - 20px);
+            right: 8.5px;
+            transition: 0.2s ease-in-out;
+            opacity: 0;
+        }
+
+        .trigger:hover:after {
+            border-color: transparent transparent transparent var(--w);
+        }
+
+        .trigger:hover:before {
+            background: var(--bl);
+        }
+
+        .innerwrap {
+            position: absolute;
+            width: 1300px;
+            height: 1300px;
+            left: -725px;
+            top: -400px;
+            z-index: 999;
+        }
+
+        .innerwrap input {
+            position: absolute;
+            top: calc(50% - 175px);
+            height: 350px;
+            width: 280px;
+            left: 900px;
+            transform-style: preserve-3d;
+            transform-origin: -350px;
+            perspective: 600px;
+            z-index: 7;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .innerwrap input:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0%;
+            top: 0%;
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        .cards {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: -100px;
+            top: 0;
+            transition: 0.7s cubic-bezier(1, 0, 0, 1);
+        }
+
+        .cardwrap {
+            position: absolute;
+            top: calc(50% - 150px);
+            height: 300px;
+            width: 250px;
+            left: 1000px;
+            transform-style: preserve-3d;
+            transform-origin: -350px;
+            perspective: 800px;
+            transition: 0.7s cubic-bezier(1, 0, 0, 1);
+        }
+
+        .card {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .card .inner {
+            position: absolute;
+            width: 112.5%;
+            height: 112.5%;
+            left: -0.675%;
+            top: -0.675%;
+            background: var(--r);
+            transform-style: preserve-3d;
+            transform-origin: bottom;
+            transform: rotateX(-30deg) translateZ(-100px);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            display: flex;
+            padding: 25px 25px 40px 25px;
+            box-sizing: border-box;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .card .inner h1 {
+            font-family: 'Anton';
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 40px;
+            transform: translateZ(25px);
+            position: relative;
+            color: var(--bl);
+        }
+
+        .card .inner h1 span {
+            position: absolute;
+            font-size: 12px;
+            top: -30px;
+            left: 0;
+            padding: 5px;
+            background: var(--bl);
+            color: var(--w);
+        }
+
+        .card .inner:before {
+            content: '01';
+            left: 25px;
+            top: 25px;
+            font-size: 75px;
+            color: var(--bl);
+            font-family: 'Anton';
+            position: absolute;
+            transform: translateZ(1px);
+        }
+
+        .card .inner:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 75%;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.00001), rgba(0, 0, 0, 0.1));
+            transform-origin: bottom;
+            transform-style: preserve-3d;
+            z-index: -1;
+            transform: skewX(-10deg) translateZ(-1px) scale(1);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card .inner .text:before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            background: linear-gradient(45deg, var(--t) calc(50% - 2px), var(--w) calc(50% - 2px), var(--w) calc(50% + 2px), var(--t) calc(50% + 2px)), linear-gradient(-45deg, var(--t) calc(50% - 2px), var(--w) calc(50% - 2px), var(--w) calc(50% + 2px), var(--t) calc(50% + 2px)), var(--r);
+            z-index: 999;
+            top: 10px;
+            right: 10px;
+            box-shadow: inset 0 0 0 5px var(--r);
+            transition: 0.2s ease-in-out;
+        }
+
+        .card .inner .text,
+        .card .inner .link {
+            box-sizing: border-box;
+            position: absolute;
+            width: 70%;
+            height: 60%;
+            left: 0;
+            top: 0;
+            background: var(--bl);
+            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1);
+            transform: translateX(150%) rotateX(90deg);
+            opacity: 0;
+            transform-origin: bottom;
+            color: var(--w);
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+
+        .card .inner .text p,
+        .card .inner .link p {
+            font-size: 12px;
+            margin-top: 0;
+            line-height: 1.5;
+            position: relative;
+            font-family: "Raleway";
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+            transform: translateY(200px) skewY(20deg);
+        }
+
+        .card .inner .link {
+            transform-origin: top;
+            height: calc(40% - 15px);
+            top: calc(60% + 15px);
+            background: var(--w);
+            color: var(--bl);
+            transform: translateX(150%) rotateX(-90deg);
+        }
+
+        .card .inner .link p {
+            transform: translateY(200px) skewY(-20deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- Radios for animation control -->
+        <input class="trigger" name="rad" type="radio" onclick="move(this, 0);" checked>
+        <input class="trigger" name="rad" type="radio" onclick="move(this, 1);">
+        <input class="trigger" name="rad" type="radio" onclick="move(this, 2);">
+
+        <div class="innerwrap">
+            <!-- Cards -->
+            <div class="cards">
+                <!-- Card 1 -->
+                <div class="cardwrap">
+                    <div class="card">
+                        <div class="inner">
+                            <h1>01</h1>
+                            <p class="text">Some text for the first card.</p>
+                            <p class="link">Learn More</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="cardwrap">
+                    <div class="card">
+                        <div class="inner">
+                            <h1>02</h1>
+                            <p class="text">Some text for the second card.</p>
+                            <p class="link">Learn More</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="cardwrap">
+                    <div class="card">
+                        <div class="inner">
+                            <h1>03</h1>
+                            <p class="text">Some text for the third card.</p>
+                            <p class="link">Learn More</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function move(trigger, cardIndex) {
+            const cards = document.querySelector('.cards');
+            cards.style.transform = `translateX(-${cardIndex * 100}%)`;
+        }
+    </script>
+</body>
+</html>

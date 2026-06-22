@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine</title>
+    <style>
+        body {
+            background: rgb(49, 0, 144);
+            background: radial-gradient(circle, rgba(49, 0, 144, 1) 0%, rgba(15, 0, 48, 1) 80%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mainContainer {
+            text-align: center;
+        }
+        .loader-container {
+            max-width: 210px;
+            margin: 0 auto;
+        }
+        .slot-machine {
+            max-width: 400px;
+            width: fit-content;
+            margin: 0 auto;
+            position: relative;
+        }
+        .slot-machine > img {
+            display: block;
+            position: relative;
+            right: -20px;
+            width: 100%;
+        }
+        .slotwrapper {
+            position: absolute;
+            overflow: hidden;
+            display: flex;
+            height: 200px;
+            width: 93%;
+            bottom: 20px;
+            padding: 0 25px;
+            margin-left: 22px;
+            background: #fff;
+        }
+        .slotwrapper ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+            float: left;
+            width: 200px;
+            height: 200px;
+            font-size: 150px;
+            line-height: 200px;
+            text-align: center;
+        }
+        .slotwrapper ul li {
+            background: #fff;
+            font-size: 0.5em;
+        }
+        .slot-machine-btn {
+            position: absolute;
+            top: 50%;
+            right: -70px;
+            transform: translate(0, -50%);
+            background: transparent;
+            border: none;
+            width: 80px;
+            margin-top: 70px;
+            transition: 0.4s all ease-in-out;
+        }
+        .slot-machine-btn.clicked {
+            transform: translate(0, -50%) rotateX(190deg);
+        }
+        button#btn-example1:hover > img {
+            filter: drop-shadow(2px 4px 6px yellow);
+        }
+        button#btn-example1 > img {
+            transition: 0.4s all ease-in-out;
+            user-select: none;
+            width: 100%;
+        }
+        :not(button) img {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mainContainer">
+    <div class="loader-container">
+    </div>
+    <div class="slot-machine">
+        <div class="slotwrapper" id="example1">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li class="text-danger">7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+            </ul>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li class="text-danger">7</li>
+            </ul>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li class="text-danger">7</li>
+            </ul>
+        </div>
+        <img src="https://i.ibb.co/MfSZ71p/7670530.png" alt="">
+        <button type="button" class="slot-machine-btn" id="btn-example1">
+            <img src="https://i.ibb.co/0VTc2LZ/spin-btn.png" alt="">
+        </button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    var startSeqs = {};
+    var startNum = 0;
+
+    $.fn.playSpin = function (options) {
+        if (this.length) {
+            if ($(this).is(':animated')) return;
+            startSeqs['mainSeq' + (++startNum)] = {};
+            $(this).attr('data-playslot', startNum);
+
+            var total = this.length;
+            var thisSeq = 0;
+
+            if (typeof options == 'undefined') {
+                options = {};
+            }
+
+            var endNums = [];
+            if (typeof options.endNum != 'undefined') {
+                if ($.isArray(options.endNum)) {
+                    endNums = options.endNum;
+                } else {
+                    endNums = [options.endNum];
+                }
+            }
+
+            for (var i = 0; i < this.length; i++) {
+                if (typeof endNums[i] == 'undefined') {
+                    endNums.push(0);
+                }
+            }
+
+            startSeqs['mainSeq' + startNum]['totalSpinning'] = total;
+            return this.each(function () {
+                options.endNum = endNums[thisSeq];
+                startSeqs['mainSeq' + startNum]['subSeq' + (++thisSeq)] = {};
+                startSeqs['mainSeq' + startNum]['subSeq' + thisSeq]['spinning'] = true;
+                var track = {
+                    total: total,
+                    mainSeq: startNum,
+                    subSeq: thisSeq
+                };
+                (new slotMachine(this, options, track));
+            });
+        }
+    };
+
+    $.fn.stopSpin = function () {
+        if (this.length) {
+            if (!$(this).is(':animated')) return;
+            if ($(this)[0].hasAttribute('data-playslot')) {
+                $.each(startSeqs['mainSeq' + $(this).attr('data-playslot')], function(index, obj) {
+                    obj['spinning'] = false;
+                });
+            }
+        }
+    };
+
+    var slotMachine = function (el, options, track) {
+        var slot = this;
+        slot.$el = $(el);
+
+        slot.defaultOptions = {
+            easing: 'swing',
+            time: 3000,
+            loops: 6,
+            manualStop: false,
+            useStopTime: false,
+            stopTime: 5000,
+            stopSeq: 'random',
+            endNum: 0,
+            onEnd: $.noop,
+            onFinish: $.noop,
+        };
+
+        slot.spinSpeed = 0;
+        slot.loopCount = 0;
+
+        slot.init = function () {
+            slot.options = $.extend({}, slot.defaultOptions, options);
+            slot.setup();
+            slot.startSpin();
+        };
+
+        slot.setup = function () {
+            var $li = slot.$el.find('li').first();
+            slot.liHeight = $li.innerHeight();
+            slot.liCount = slot.$el.children().length;
+            slot.listHeight = slot.liHeight * slot.liCount;
+            slot.spinSpeed = slot.options.time / slot.options.loops;
+
+            $li.clone().appendTo(slot.$el);
+
+            if (slot.options.stopSeq == 'leftToRight') {
+                if (track.subSeq != 1) {
+                    slot.options.manualStop = true;
+                }
+            } else if (slot.options.stopSeq == 'rightToLeft') {
+                if (track.total != track.subSeq) {
+                    slot.options.manualStop = true;
+                }
+            }
+        };
+
+        slot.startSpin = function () {
+            slot.$el
+                .css('top', -slot.listHeight)
+                .animate({'top': '0px'}, slot.spinSpeed, 'linear', function () {
+                    slot.lowerSpeed();
+                });
+        };
+
+        slot.lowerSpeed = function () {
+            slot.loopCount++;
+
+            if (slot.loopCount < slot.options.loops ||
+                (slot.options.manualStop && startSeqs['mainSeq' + track.mainSeq]['subSeq' + track.subSeq]['spinning'])) {
+                slot.startSpin();
+            } else {
+                slot.endSpin();
+            }
+        };
+
+        slot.endSpin = function () {
+            if (slot.options.endNum == 0) {
+                slot.options.endNum = slot.randomRange(1, slot.liCount);
+            }
+
+            if (slot.options.endNum < 0 || slot.options.endNum > slot.liCount) {
+                slot.options.endNum = 1;
+            }
+
+            var finalPos = -((slot.liHeight * slot.options.endNum) - slot.liHeight);
+            var finalTime = ((slot.spinSpeed * 1.5) * (slot.liCount)) / slot.options.endNum;
+            if (slot.options.useStopTime) {
+                finalTime = slot.options.stopTime;
+            }
+
+            slot.$el
+                .css('top', -slot.listHeight)
+                .animate({'top': finalPos}, parseInt(finalTime), slot.options.easing, function () {
+                    slot.$el.find('li').last().remove();
+
+                    slot.endAnimation(slot.options.endNum);
+                    if ($.isFunction(slot.options.onEnd)) {
+                        slot.options.onEnd(slot.options.endNum);
+                    }
+
+                    if (startSeqs['mainSeq' + track.mainSeq]['totalSpinning'] == 0) {
+                        var totalNum = '';
+                        $.each(startSeqs['mainSeq' + track.mainSeq], function(index, subSeqs) {
+                            if (typeof subSeqs == 'object') {
+                                totalNum += subSeqs['endNum'].toString();
+                            }
+                        });
+                        if ($.isFunction(slot.options.onFinish)) {
+                            slot.options.onFinish(totalNum);
+                        }
+                    }
+                });
+        }
+
+        slot.endAnimation = function(endNum) {
+            if (slot.options.stopSeq == 'leftToRight' && track.total != track.subSeq) {
+                startSeqs['mainSeq' + track.mainSeq]['subSeq' + (track.subSeq + 1)]['spinning'] = false;
+            } else if (slot.options.stopSeq == 'rightToLeft' && track.subSeq != 1) {
+                startSeqs['mainSeq' + track.mainSeq]['subSeq' + (track.subSeq - 1)]['spinning'] = false;
+            }
+            startSeqs['mainSeq' + track.mainSeq]['totalSpinning']--;
+            startSeqs['mainSeq' + track.mainSeq]['subSeq' + track.subSeq]['endNum'] = endNum;
+        }
+
+        slot.randomRange = function (low, high) {
+            return Math.floor(Math.random() * (1 + high - low)) + low;
+        };
+
+        this.init();
+    };
+
+    $('#btn-example1').click(function() {
+        $('#example1 ul').playSpin();
+    });
+</script>
+
+</body>
+</html>

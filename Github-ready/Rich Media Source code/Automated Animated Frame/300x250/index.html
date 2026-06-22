@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Card</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="circle" style="--clr: rgba(40, 182, 44, 0.3)">
+        <img src="Frame_1.png" class="logo" alt="Logo" />
+      </div>
+      <div
+        class="content"
+        style="
+          width: 300px;
+          height: 250px;
+          background: url('Frame_2.png') no-repeat center center;
+          background-size: cover;
+          border-radius: 1px;
+          background-color: transparent;
+        "
+      ></div>
+    </div>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(to bottom, #f3f4f6, #e9ecef);
+      }
+
+      .card {
+        position: relative;
+        width: 300px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        animation: cardAnimation 5s ease-in-out infinite;
+      }
+
+      .circle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        background: var(--clr);
+        transition: 0.5s;
+        border-radius: 50%;
+        animation: circleAnimation 5s ease-in-out infinite;
+      }
+
+      .logo {
+        position: relative;
+        width: 200px;
+        height: 167px;
+        animation: logoAnimation 5s ease-in-out infinite;
+      }
+
+      .content {
+        position: absolute;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        animation: contentAnimation 5s ease-in-out infinite;
+      }
+
+      @keyframes cardAnimation {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes circleAnimation {
+        0%, 100% {
+          width: 0;
+          height: 0;
+          opacity: 0.5;
+        }
+        50% {
+          width: 120%;
+          height: 120%;
+          opacity: 1;
+        }
+      }
+
+      @keyframes logoAnimation {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      @keyframes contentAnimation {
+        0% {
+          opacity: 0;
+          visibility: hidden;
+          transform: scale(0.9);
+        }
+        50% {
+          opacity: 1;
+          visibility: visible;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          visibility: hidden;
+          transform: scale(0.9);
+        }
+      }
+
+      .card:hover {
+        animation-play-state: paused; 
+      }
+    </style>
+  </body>
+</html>

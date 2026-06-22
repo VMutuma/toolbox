@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* Now you can use the font in your CSS rules */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+html {
+    background: radial-gradient(circle, #fff, rgb(189, 182, 182));
+    /* font-family: ope, sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+#container {
+    width: 600px;
+    height: 450px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+#front {
+    font-size: 40px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: #FC5Aef;
+    width: 600px;
+    height: 450px;
+    padding: 10px;
+    margin: 30px auto 20px auto;
+    z-index: 2;
+    display: none;
+    background-size: cover;
+}
+
+#front img {
+    width: 280px;
+}
+
+#instructions {
+    width: 450px;
+    height: 50px;
+    margin: 10px auto;
+    font-size: 30px;
+    background-color: #1d99d3;
+    color: #FC5Aef;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 0px 0px #775012;
+}
+
+.paragraph {
+    font-size: 40px;
+    color: aliceblue;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 60px;   
+}
+
+#fruitcontainer {
+    background: url(./Assets/OREO\ Background.jpg);
+    background-size: cover;
+    width: 600px;
+    height: 600px;
+    padding: 10px;
+    margin: 30px auto 20px auto;
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-family: cursive, sans-serif;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0px 4px 0px 0px #4b4b4e;
+    position: relative;
+}
+
+.fruit {
+    display: none;
+    position: absolute;
+    height: 60px;
+    width: 60px;
+}
+
+#score {
+    display: none;
+}
+
+.scoreDisplay {
+    z-index: 1;
+    display: flex;
+    background-color: transparent;
+    color: #FC5Aef;
+    position: absolute;
+    font-size: 30px;
+    justify-items: center;
+    right: 1%;
+}
+
+#score img {
+    width: 0px;
+    align-items: center;
+    padding-right: 5px;
+}
+
+#trialsleft {
+    margin-top: 7px;
+    display: flex;
+    position: absolute;
+    left: 550px;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.life {
+    display: none;
+    /* width: 30px; */
+    /* padding-right: 5px; */
+}
+
+/* #startReset {
+    position: absolute;
+    width: 120px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    color: #FC5Aef;
+    font:bolder;
+    font-weight: 900;
+    box-shadow: 0px 4px 0px 0px #FC5Aef;
+    border-radius: 5px;
+    transition: all .2s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+#startReset:hover{
+    background-color: #1d99d3;
+    color: aliceblue;
+    box-shadow: 0px 4px 0px 0px aliceblue;
+} */
+
+@keyframes pulse {
+    0% {
+      background-color: transparent;
+      color: #FC5Aef;
+      box-shadow: 0px 4px 0px 0px #FC5Aef;
+    }
+    50% {
+      background-color: #1d99d3;
+      color: aliceblue;
+      box-shadow: 0px 4px 0px 0px aliceblue;
+    }
+    100% {
+      background-color: transparent;
+      color: #FC5Aef;
+      box-shadow: 0px 4px 0px 0px #FC5Aef;
+    }
+  }
+  
+  #startReset {
+    position: absolute;
+    width: 120px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    color: #FC5Aef;
+    font: bolder;
+    font-weight: 900;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    animation: pulse 4s infinite ease-in-out; 
+  }
+  
+
+#startReset:active {
+    background-color: #1d99d3;
+    color: aliceblue;
+    box-shadow: 0px 4px 0px 0px aliceblue;
+}
+
+#gameOver {
+    box-sizing: border-box;
+    width: 500px;
+    height: 300px;
+    background: transparent;
+    color: #d3901d;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+#congrats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    display: none;
+}
+
+.fruit {
+    display: none;
+    position: absolute;
+    height: 60px;
+    width: 60px;
+}
+
+.fruit-half {
+    display: none;
+    position: absolute;
+    height: 60px;
+    width: 30px;
+}
+
+.flash {
+    display: none;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    z-index: 10;
+}
+
+
+
+

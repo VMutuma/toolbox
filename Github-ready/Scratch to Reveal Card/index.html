@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .main-container {
+        padding: 24px 16px;
+      }
+
+      .scratch-container {
+        width: 400px;
+        height: 400px;
+        border-radius: 10px;
+        margin-bottom: 32px;
+        overflow: hidden;
+        position: relative;
+        animation: bounce 2s infinite;
+      }
+
+      .scratch-card {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+      canvas {
+        position: absolute;
+        cursor: grabbing;
+      }
+
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes shake {
+        0%, 100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      .scratch-container:hover {
+        animation: shake 0.5s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <h2 class="main-heading">Scratch to view code</h2>
+      <div class="scratch-container">
+        <div class="scratch-card">
+          <div class="code">
+            <img src="Listen_Up_Kenya.jpg" alt="" width="400" height="400">
+          </div>
+        </div>
+        <canvas id="scratch-card1" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <script>
+      const createScratchCard = (canvasId, color) => {
+        let canvas = document.getElementById(canvasId);
+        let context = canvas.getContext("2d");
+
+        const init = () => {
+          context.fillStyle = color;
+          context.globalAlpha = 0.7; // Set the transparency of the covering color
+          context.beginPath();
+          // Draw an irregular shape covering 35% of the canvas
+          context.moveTo(0, 0);
+          context.lineTo(0.35 * canvas.width, 0);
+          context.lineTo(0.35 * canvas.width, 0.5 * canvas.height);
+          context.lineTo(0.2 * canvas.width, canvas.height);
+          context.lineTo(0, canvas.height);
+          context.closePath();
+          context.fill();
+        };
+
+        const scratch = (x, y) => {
+          context.globalCompositeOperation = "destination-out";
+          context.beginPath();
+          context.arc(x, y, 24, 0, 2 * Math.PI);
+          context.fill();
+        };
+
+        canvas.addEventListener("mouseover", (event) => {
+          scratch(event.offsetX, event.offsetY);
+        });
+
+        canvas.addEventListener("mousemove", (event) => {
+          scratch(event.offsetX, event.offsetY);
+        });
+
+        init();
+      };
+
+      createScratchCard("scratch-card1", "#006d77");
+    </script>
+  </body>
+</html>

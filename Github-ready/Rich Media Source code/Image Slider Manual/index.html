@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Comparison Slider</title>
+    <style>
+        .container {
+            position: relative;
+            width: 100%;
+            margin: 50px 0;
+        }
+
+        .comparison-slider-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+            background-color: white;
+        }
+
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            border: 5px white solid;
+            box-sizing: border-box;
+        }
+
+        .comparison-slider img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .comparison-slider .resize {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .comparison-slider .resize img {
+            display: block;
+        }
+
+        .comparison-slider .divider {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: rgba(256, 256, 256, 0.2);
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            cursor: ew-resize;
+        }
+
+        .comparison-slider .divider:before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -9px;
+            top: 50%;
+            margin-top: -10px;
+            background-color: rgba(256, 256, 256, 0.2);
+            border: 1px pink solid ;
+            transform: rotate(45deg);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .comparison-slider .divider:after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: -5px;
+            top: 50%;
+            margin-top: -6px;
+            background-color: rgba(256, 256, 256, 0.2);
+            border: 1px pink solid ;
+            transform: rotate(45deg);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .comparison-slider .divider.draggable:before {
+            width: 30px;
+            height: 30px;
+            left: -14px;
+            margin-top: -15px;
+        }
+
+        .comparison-slider .divider.draggable:after {
+            width: 20px;
+            height: 20px;
+            left: -9px;
+            margin-top: -10px;
+            background-color: #f20808;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner">
+            <div class="comparison-slider-wrapper">
+                <div class="comparison-slider">
+                    <img src="./1.png" alt="">
+                    <div class="resize">
+                        <img src="./2.png" alt="">
+                    </div>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if ($(".comparison-slider")[0]) {
+                let compSlider = $(".comparison-slider");
+                compSlider.each(function() {
+                    let compSliderWidth = $(this).width() + "px";
+                    $(this).find(".resize img").css({ width: compSliderWidth });
+                    drags($(this).find(".divider"), $(this).find(".resize"), $(this));
+                });
+                $(window).on("resize", function() {
+                    let compSliderWidth = compSlider.width() + "px";
+                    compSlider.find(".resize img").css({ width: compSliderWidth });
+                });
+            }
+        });
+
+        function drags(dragElement, resizeElement, container) {
+            let touched = false;
+            window.addEventListener('touchstart', function() {
+                touched = true;
+            });
+            window.addEventListener('touchend', function() {
+                touched = false;
+            });
+
+            dragElement.on("mousedown touchstart", function(e) {
+                dragElement.addClass("draggable");
+                resizeElement.addClass("resizable");
+                let startX = e.pageX ? e.pageX : e.originalEvent.touches[0].pageX;
+                let dragWidth = dragElement.outerWidth();
+                let posX = dragElement.offset().left + dragWidth - startX;
+                let containerOffset = container.offset().left;
+                let containerWidth = container.outerWidth();
+                let minLeft = containerOffset + 10;
+                let maxLeft = containerOffset + containerWidth - dragWidth - 10;
+
+                dragElement.parents().on("mousemove touchmove", function(e) {
+                    if (touched === false) {
+                        e.preventDefault();
+                    }
+                    let moveX = e.pageX ? e.pageX : e.originalEvent.touches[0].pageX;
+                    let leftValue = moveX + posX - dragWidth;
+                    if (leftValue < minLeft) {
+                        leftValue = minLeft;
+                    } else if (leftValue > maxLeft) {
+                        leftValue = maxLeft;
+                    }
+                    let widthValue = (leftValue + dragWidth / 2 - containerOffset) * 100 / containerWidth + "%";
+                    $(".draggable").css("left", widthValue).on("mouseup touchend touchcancel", function() {
+                        $(this).removeClass("draggable");
+                        resizeElement.removeClass("resizable");
+                    });
+                    $(".resizable").css("width", widthValue);
+                }).on("mouseup touchend touchcancel", function() {
+                    dragElement.removeClass("draggable");
+                    resizeElement.removeClass("resizable");
+                });
+            }).on("mouseup touchend touchcancel", function(e) {
+                dragElement.removeClass("draggable");
+                resizeElement.removeClass("resizable");
+            });
+        }
+    </script>
+</body>
+</html>

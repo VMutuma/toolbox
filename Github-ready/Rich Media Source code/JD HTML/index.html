@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jack Daniels with Video Animation</title>
+  <style>
+    .container {
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .image-frame {
+      --size: 100%;
+      width: var(--size);
+      height: var(--size);
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+      animation: pulseOpacity 18s ease-in-out infinite;
+    }
+
+    .image-frame .color-image,
+    .image-frame .grayscale-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('./JD_1200X1200.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .image-frame .grayscale-image {
+      filter: grayscale(100%);
+      z-index: 2;
+      transform: scale(0.85);
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><defs><linearGradient id="waveGradient" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="white"/><stop offset="100%" stop-color="black"/></linearGradient></defs><rect width="600" height="600" fill="url(%23waveGradient)"/></svg>');
+      mask-size: 100% 200%;
+      mask-position: 0 100%;
+      animation: liquidFill 8s ease-in-out forwards, shake 8s ease-in-out forwards, scaleUp 8s ease-in-out forwards;
+    }
+
+    .image-frame .color-image {
+      z-index: 5;
+      transform: scale(1);
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><defs><linearGradient id="waveGradient" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="white"/><stop offset="100%" stop-color="black"/></linearGradient></defs><rect width="600" height="600" fill="url(%23waveGradient)"/></svg>');
+      mask-size: 100% 200%;
+      mask-position: 0 100%;
+      opacity: 0;
+    }
+
+    @keyframes liquidFill {
+      0% { mask-position: 0 100%; }
+      100% { mask-position: 0 0%; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-1px, -1px); }
+      20% { transform: translate(1px, 1px); }
+      30% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      50% { transform: translate(-1px, -1px); }
+      60% { transform: translate(1px, 1px); }
+      70% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      90% { transform: translate(-1px, -1px); }
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .flash-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.8);
+      z-index: 3;
+      opacity: 0;
+      animation: flash 0.5s ease-in-out forwards;
+    }
+
+    @keyframes flash {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes pulseOpacity {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.9; }
+    }
+
+    @keyframes scaleUp {
+      0% { transform: scale(0.85); }
+      100% { transform: scale(1); }
+    }
+
+    .main-video {
+      width: 600px;
+      height: 600px;
+      background-color: #000;
+    }
+
+    .main-video video {
+      width: 600px;
+      height: 600px;
+      object-fit: cover;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-video">
+      <video id="mainVideo" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="image-frame">
+      <div class="color-image"></div>
+      <div class="grayscale-image"></div>
+      <div class="flash-effect"></div>
+    </div>
+  </div>
+
+  <script>
+    const grayscaleImage = document.querySelector('.grayscale-image');
+    const colorImage = document.querySelector('.color-image');
+    const flash = document.querySelector('.flash-effect');
+
+    function startCycle() {
+      document.querySelector('.image-frame').style.animation = 'pulseOpacity 18s ease-in-out infinite';
+      grayscaleImage.style.animation = 'liquidFill 8s ease-in-out forwards, shake 8s ease-in-out forwards, scaleUp 8s ease-in-out forwards';
+
+      setTimeout(() => {
+        flash.style.animation = 'flash 0.5s ease-in-out forwards';
+        colorImage.style.opacity = '1';
+        colorImage.style.animation = 'liquidFill 5s ease-in-out forwards';
+        grayscaleImage.style.transform = 'scale(1)';
+        colorImage.style.transform = 'scale(1)';
+        colorImage.style.filter = 'none';
+        colorImage.style.maskImage = 'none';
+        colorImage.style.animation = 'floating 6s ease-in-out infinite';
+      }, 8000);
+
+      setTimeout(() => {
+        grayscaleImage.style.opacity = '1';
+        grayscaleImage.style.animation = 'none';
+        colorImage.style.opacity = '0';
+        colorImage.style.animation = 'none';
+        flash.style.animation = 'none';
+        void grayscaleImage.offsetWidth;
+        startCycle();
+      }, 18000);
+    }
+
+    startCycle();
+  </script>
+</body>
+</html>

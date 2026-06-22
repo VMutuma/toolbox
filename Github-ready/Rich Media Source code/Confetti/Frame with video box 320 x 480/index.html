@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Confetti Splash Ad with Full-Screen Sparkles</title>
+</head>
+<body>
+    <div class="frame">
+        <div class="logo-container">
+            <a href="https://suss.co.ke" target="_blank" rel="noopener noreferrer">
+            <img src="logo.jpeg" alt="Company Logo" class="logo">
+            </a>
+        </div>
+
+        <div class="gif-container">
+            <img src="KCB Flexi_ 320x480.gif" alt="Ad GIF" class="gif-image">
+        </div>
+
+        <div class="ad-container">
+            <img src="KCB-Flexi_-320x480.png" alt="Your Advert" class="advert-image">
+            <div class="confetti-container">
+                <!-- Confetti and Sparkles -->
+                <div class="confetti layer1" style="background-color: #FF5A5F;"></div>
+                <div class="confetti layer2" style="background-color: #FFB400;"></div>
+                <div class="confetti layer1" style="background-color: #00A6ED;"></div>
+                <div class="confetti layer2" style="background-color: #8A2BE2;"></div>
+                <div class="confetti layer3" style="background-color: #FF4081;"></div>
+                <div class="confetti layer1" style="background-color: #34D399;"></div>
+                <div class="confetti layer2" style="background-color: #FFA500;"></div>
+                <div class="confetti layer3" style="background-color: #00CED1;"></div>
+
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .frame {
+            width: 320px;
+            height: 850px;
+            border: 2px solid #ccc;
+            overflow: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gif-container {
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+        }
+
+        .gif-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ad-container {
+            position: relative;
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .ad-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) skewX(-20deg); }
+            100% { transform: translateX(100%) skewX(-20deg); }
+        }
+
+        .advert-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .ad-container:hover .advert-image {
+            transform: scale(1.05);
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            perspective: 600px;
+        }
+
+        .confetti {
+            position: absolute;
+            opacity: 0.9;
+            animation: splash 3s ease-in-out infinite, colorChange 3s linear infinite;
+            animation-duration: 4s;
+        }
+
+        .confetti::before {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: inherit;
+            border-radius: 50%;
+            animation: randomShape 0.5s infinite;
+        }
+
+        .confetti.layer1 { transform: translateZ(0px); animation-duration: 3s; }
+        .confetti.layer2 { transform: translateZ(-50px) scale(0.9); animation-duration: 4s; }
+        .confetti.layer3 { transform: translateZ(-100px) scale(0.8); animation-duration: 5s; }
+
+        @keyframes splash {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            50% { opacity: 0.8; transform: translateY(200px) rotate(180deg) scale(1.2); }
+            100% { opacity: 0; transform: translateY(400px) rotate(360deg) scale(0.8); }
+        }
+
+        @keyframes randomShape {
+            0% { border-radius: 50%; }
+            33% { border-radius: 0%; }
+            66% { border-radius: 20%; }
+            100% { border-radius: 50%; }
+        }
+
+        @keyframes colorChange {
+            0% { background-color: #FF5A5F; }
+            25% { background-color: #FFB400; }
+            50% { background-color: #00A6ED; }
+            75% { background-color: #34D399; }
+            100% { background-color: #8A2BE2; }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-100px) scale(0); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 1.5s ease-out infinite;
+            animation-delay: calc(0.5s * var(--i));
+        }
+
+        .sparkle:nth-child(1) { left: 5%; top: 0; animation-delay: 0s; }
+        .sparkle:nth-child(2) { left: 25%; top: 0; animation-delay: 0.4s; }
+        .sparkle:nth-child(3) { left: 45%; top: 0; animation-delay: 0.8s; }
+        .sparkle:nth-child(4) { left: 65%; top: 0; animation-delay: 1.2s; }
+        .sparkle:nth-child(5) { left: 85%; top: 0; animation-delay: 1.6s; }
+
+        .confetti:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .confetti:nth-child(2) { left: 30%; animation-delay: 0.5s; }
+        .confetti:nth-child(3) { left: 50%; animation-delay: 1s; }
+        .confetti:nth-child(4) { left: 70%; animation-delay: 1.5s; }
+        .confetti:nth-child(5) { left: 90%; animation-delay: 2s; }
+
+        .confetti:nth-child(odd) { animation-direction: alternate-reverse; }
+        .confetti:nth-child(even) { animation-direction: alternate; }
+    </style>
+</body>
+</html>

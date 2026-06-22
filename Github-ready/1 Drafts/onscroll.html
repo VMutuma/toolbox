@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Example</title>
+    <style>
+        section {
+            width: 300px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background-image: url(default.jpg); /* Default background image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .green, .red {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 250px;
+            transition: top 0.5s;
+        }
+
+        .green {
+            background-image: url(green.jpg); /* Green frame image */
+            z-index: 1;
+        }
+
+        .red {
+            background-image: url(red.jpg); /* Red frame image */
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <section id="scrollSection">
+        <div class="green"></div>
+        <div class="red"></div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let lastScrollY = window.scrollY;
+
+            document.addEventListener('scroll', function() {
+                const section = document.getElementById('scrollSection');
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const currentScrollY = window.scrollY;
+
+                // Scrolling down
+                if (currentScrollY > lastScrollY) {
+                    if (rect.top < windowHeight / 2 && rect.bottom > windowHeight / 2) {
+                        section.querySelector('.red').style.top = '-250px';
+                    }
+                    if (rect.top < windowHeight / 7 && rect.bottom > windowHeight / 7) {
+                        section.querySelector('.green').style.top = '-250px';
+                    }
+                }
+
+                // Scrolling up
+                if (currentScrollY < lastScrollY) {
+                    if (rect.top < windowHeight / 2 && rect.bottom > windowHeight / 2) {
+                        section.querySelector('.red').style.top = '0';
+                    }
+                    if (rect.top < windowHeight / 7 && rect.bottom > windowHeight / 7) {
+                        section.querySelector('.green').style.top = '0';
+                    }
+                }
+
+                lastScrollY = currentScrollY;
+            });
+        });
+    </script>
+</body>
+</html>

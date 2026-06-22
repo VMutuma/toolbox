@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video with Motion and Branding</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+    }
+
+    .glassIco {
+      --width: 320px;
+      --height: 100px;
+      width: var(--width);
+      height: var(--height);
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      border-radius: 15px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+      animation: bounceEffect 3.3s infinite;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo {
+      position: absolute;
+      top: 1px;
+      right: 10px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-image: url('logo.jpeg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .glassIco:before {
+      content: "";
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.5);
+      filter: blur(2px);
+      transform: skewX(45deg) translateX(calc(var(--width) + 50%));
+      transition: transform 300ms ease-in-out;
+    }
+
+    .glassIco.hovered:before {
+      transform: skewX(45deg) translateX(calc(var(--width) * -1 - 50%));
+    }
+
+    .glassIco.hovered {
+      transform: translateY(-20px);
+    }
+
+    @keyframes bounceEffect {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glassIco" id="glassIco">
+    <video autoplay loop muted>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <!-- Logo -->
+    <div class="logo"></div>
+  </div>
+
+  <script>
+    const glassIco = document.getElementById('glassIco');
+    let hovered = false;
+
+    setInterval(() => {
+      if (hovered) {
+        glassIco.classList.remove('hovered');
+      } else {
+        glassIco.classList.add('hovered');
+      }
+      hovered = !hovered;
+    }, 3300); 
+  </script>
+</body>
+</html>

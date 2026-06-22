@@ -1,0 +1,143 @@
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.main {
+  align-items: center;
+  /* background: linear-gradient(to right bottom, #272829, #37383b, #272829); */
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+.cube__section {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 60%;
+}
+
+.cube {
+  height: 600px;
+  perspective: 6000px;
+  width: 600px;
+}
+
+.cube__container {
+  animation: rotationBox 20s linear infinite forwards;
+  height: 100%;
+  position: relative;
+  transform: translateZ(-10rem);
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.cube__face {
+  align-items: center;
+  background-color: #eee;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  width: 600px;
+}
+
+.cube__face--front {
+  transform: rotateY(0deg) translateZ(300px);
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(300px);
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(300px);
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(300px);
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(300px);
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(300px);
+}
+
+.video__container {
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.cube__container:hover {
+    animation-play-state: paused;
+  }
+  
+
+@keyframes rotationBox {
+  0% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  25% {
+    transform: rotate3d(0, 1, 1, 90deg);
+  }
+  50% {
+    transform: rotate3d(1, 0, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(1, 1, 0, 240deg);
+  }
+  100% {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
+
+
+/* Hand styling and positioning */
+.hand__icon {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: auto;
+    animation: heartbeat 1.5s infinite;
+    z-index: 10; /* Make sure the hand appears in front of the cube */
+  }
+  
+  /* Pulse/heartbeat effect */
+  @keyframes heartbeat {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    25% {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+    75% {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+    
+  .cube__container:hover + .hand__icon,
+.hand__icon:hover {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}

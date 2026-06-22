@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showbox Signup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="main">
+        <div class="cube__section">
+            <div class="cube">
+                <div class="cube__container">
+                    <div class="cube__face cube__face--front">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="cube__face cube__face--back">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="cube__face cube__face--left">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="cube__face cube__face--right">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="cube__face cube__face--top">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="cube__face cube__face--bottom">
+                        <video class="video__container" autoplay muted loop>
+                            <source class="video__media" src="https://storage.coverr.co/videos/KP78n9EWQAje1fm6Xr02N6zm7V01xxNRNK?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTg4MDIwODIzfQ._d_wNMzyykNR9_7lkgCpidj0JI4vCGuxfDKyEEfStO0" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        /* CSS reset ==============================================*/
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  position: relative;
+}
+
+html {
+  /* formula: 1 rem = 10px; 10px/16px = 62.5% */
+  font-size: 62.5%;
+}
+
+/* Typography ================================================*/
+
+/* Layout ================================================*/
+
+.main {
+  align-items: center;
+  background: linear-gradient(to right bottom, #272829, #37383b, #272829);
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+/* Showbox cube section (on right side) */
+.cube__section {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 60%;
+}
+
+/* The cube - where the fun begins :) ===========================*/
+
+/* The cube outer container */
+.cube {
+  height: 20rem;
+  perspective: 60rem;
+  width: 20rem;
+}
+
+/* The cube's inner container */
+/* Note: rotationBox keyframes is placed right at the end */
+.cube__container {
+  animation: rotationBox 20s infinite linear;
+  height: 100%;
+  position: relative;
+  transform: translateZ(-10rem);
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+/* This will target every single side of the cube */
+.cube__face {
+  align-items: center;
+  background-color: #eee;
+  display: flex;
+  height: 20rem;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  width: 20rem;
+}
+
+/* This will target an individual side of the cube */
+.cube__face--front {
+  transform: rotateY(0deg) translateZ(10rem);
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(10rem);
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(10rem);
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(10rem);
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(10rem);
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(10rem);
+}
+
+/* Videos ==============================================================*/
+
+/* Specifically targeting the <video> element */
+.video__container {
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+
+/* Animation ============================================================*/
+
+@keyframes rotationBox {
+  0% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  25% {
+    transform: rotate3d(0, 1, 1, 90deg);
+  }
+  50% {
+    transform: rotate3d(1, 0, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(1, 1, 0, 270deg);
+  }
+  100% {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
+
+    </style>
+</body>
+</html>
