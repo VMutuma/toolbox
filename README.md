@@ -14,6 +14,7 @@ A collection of small scripts, tools, and experiments that don't warrant their o
 | `suss-with-sanity` | — | Active |
 | `Lead-Analyzer` | Analyzes and scores leads from CRM exports | Active |
 | `Sendy-Toolkit` | Utilities for working with Sendy email campaigns | Active |
+| `web_scraping`          | Lead-gen scrapers for events, directories, and account lists (Apollo, GITEX, AgriTec, Tamfi) | Active |
 
 ## Adding a new project
 
