@@ -1,0 +1,33 @@
+# ── Secrets ─────────────────────────────────────
+.env
+apollo_abm/.env
+gitex/config.py
+
+# ── Python ──────────────────────────────────────
+__pycache__/
+*.pyc
+venv/
+env/
+*.egg-info/
+
+# ── Browser drivers / binaries ──────────────────
+chromedriver*
+geckodriver*
+
+# ── Scraped data & outputs — never tracked ──────
+data/
+*.csv
+!apollo_abm/data/company_name_mappings.example.csv
+
+# ── Checkpoints, progress files, debug dumps ────
+*_progress.txt
+progress.json
+ckpt_*.json
+*_checkpoint.csv
+domains_final.csv
+debug_page*.html
+selenium_dork_results/
+
+# ── OS/editor junk ───────────────────────────────
+.DS_Store
+.vscode/
